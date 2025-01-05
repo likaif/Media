@@ -1,6 +1,7 @@
 package com.mkrdeveloper.videoplayercompose
 
 import androidx.annotation.OptIn
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,6 +21,7 @@ import androidx.media3.datasource.RawResourceDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import com.example.exoplayerdemo.R
+import com.example.exoplayerdemo.VideoSurface
 
 @OptIn(UnstableApi::class) @Composable
 fun VideoPlayerExo(
@@ -30,25 +32,26 @@ fun VideoPlayerExo(
         setMediaItem(MediaItem.fromUri(RawResourceDataSource.buildRawResourceUri(R.raw.sample)))
 //        setMediaItem(MediaItem.fromUri(videoUrl))
     }
-    val playerView = PlayerView(context)
+
+//    val playerView = PlayerView(context)
     val playWhenReady by rememberSaveable {
         mutableStateOf(true)
     }
 
-    playerView.player = player
-
+//    playerView.player = player
+    VideoSurface(modifier = Modifier.fillMaxSize(), exoPlayer = player)
     LaunchedEffect(player) {
         player.prepare()
         player.playWhenReady = playWhenReady
     }
 
-    AndroidView(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-            .clip(RoundedCornerShape(16.dp)),
-        factory = {
-            playerView
-        })
+//    AndroidView(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(8.dp)
+//            .clip(RoundedCornerShape(16.dp)),
+//        factory = {
+//            playerView
+//        })
 
 }
